@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ДневникСтудентаModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Группа">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Оценки">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Оценка" Type="nvarchar" MaxLength="50" />
+          <Property Name="idПредмета" Type="int" />
+          <Property Name="idСтудента" Type="int" />
+        </EntityType>
+        <EntityType Name="Предметы">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеПредмета" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеРоли" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Студенты">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="nvarchar(max)" />
+          <Property Name="idГруппы" Type="int" />
+          <Property Name="Логин" Type="nvarchar(max)" />
+          <Property Name="Пароль" Type="nvarchar(max)" />
+          <Property Name="idРоли" Type="int" />
+        </EntityType>
+        <Association Name="FK__Оценки__idПредме__412EB0B6">
+          <End Role="Предметы" Type="Self.Предметы" Multiplicity="0..1" />
+          <End Role="Оценки" Type="Self.Оценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Предметы">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Оценки">
+              <PropertyRef Name="idПредмета" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Оценки__idСтуден__4222D4EF">
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="0..1" />
+          <End Role="Оценки" Type="Self.Оценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Студенты">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Оценки">
+              <PropertyRef Name="idСтудента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Студенты__idГруп__38996AB5">
+          <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Группа">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="idГруппы" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Студенты__idРоли__5AEE82B9">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="0..1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="idРоли" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ДневникСтудентаModelContainer">
+          <EntitySet Name="Группа" EntityType="Self.Группа" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Оценки" EntityType="Self.Оценки" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Предметы" EntityType="Self.Предметы" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Студенты" EntityType="Self.Студенты" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Оценки__idПредме__412EB0B6" Association="Self.FK__Оценки__idПредме__412EB0B6">
+            <End Role="Предметы" EntitySet="Предметы" />
+            <End Role="Оценки" EntitySet="Оценки" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Оценки__idСтуден__4222D4EF" Association="Self.FK__Оценки__idСтуден__4222D4EF">
+            <End Role="Студенты" EntitySet="Студенты" />
+            <End Role="Оценки" EntitySet="Оценки" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Студенты__idГруп__38996AB5" Association="Self.FK__Студенты__idГруп__38996AB5">
+            <End Role="Группа" EntitySet="Группа" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Студенты__idРоли__5AEE82B9" Association="Self.FK__Студенты__idРоли__5AEE82B9">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ДневникСтудентаModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Группа">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Студенты" Relationship="Self.FK__Студенты__idГруп__38996AB5" FromRole="Группа" ToRole="Студенты" />
+        </EntityType>
+        <EntityType Name="Оценки">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Оценка" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idПредмета" Type="Int32" />
+          <Property Name="idСтудента" Type="Int32" />
+          <NavigationProperty Name="Предметы" Relationship="Self.FK__Оценки__idПредме__412EB0B6" FromRole="Оценки" ToRole="Предметы" />
+          <NavigationProperty Name="Студенты" Relationship="Self.FK__Оценки__idСтуден__4222D4EF" FromRole="Оценки" ToRole="Студенты" />
+        </EntityType>
+        <EntityType Name="Предметы">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеПредмета" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Оценки" Relationship="Self.FK__Оценки__idПредме__412EB0B6" FromRole="Предметы" ToRole="Оценки" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеРоли" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Студенты" Relationship="Self.FK__Студенты__idРоли__5AEE82B9" FromRole="Роли" ToRole="Студенты" />
+        </EntityType>
+        <EntityType Name="Студенты">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idГруппы" Type="Int32" />
+          <Property Name="Логин" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Пароль" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idРоли" Type="Int32" />
+          <NavigationProperty Name="Группа" Relationship="Self.FK__Студенты__idГруп__38996AB5" FromRole="Студенты" ToRole="Группа" />
+          <NavigationProperty Name="Оценки" Relationship="Self.FK__Оценки__idСтуден__4222D4EF" FromRole="Студенты" ToRole="Оценки" />
+          <NavigationProperty Name="Роли" Relationship="Self.FK__Студенты__idРоли__5AEE82B9" FromRole="Студенты" ToRole="Роли" />
+        </EntityType>
+        <Association Name="FK__Студенты__idГруп__38996AB5">
+          <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Группа">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="idГруппы" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Оценки__idПредме__412EB0B6">
+          <End Role="Предметы" Type="Self.Предметы" Multiplicity="0..1" />
+          <End Role="Оценки" Type="Self.Оценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Предметы">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Оценки">
+              <PropertyRef Name="idПредмета" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Оценки__idСтуден__4222D4EF">
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="0..1" />
+          <End Role="Оценки" Type="Self.Оценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Студенты">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Оценки">
+              <PropertyRef Name="idСтудента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Студенты__idРоли__5AEE82B9">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="0..1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="idРоли" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Группа" EntityType="Self.Группа" />
+          <EntitySet Name="Оценки" EntityType="Self.Оценки" />
+          <EntitySet Name="Предметы" EntityType="Self.Предметы" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" />
+          <EntitySet Name="Студенты" EntityType="Self.Студенты" />
+          <AssociationSet Name="FK__Студенты__idГруп__38996AB5" Association="Self.FK__Студенты__idГруп__38996AB5">
+            <End Role="Группа" EntitySet="Группа" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Оценки__idПредме__412EB0B6" Association="Self.FK__Оценки__idПредме__412EB0B6">
+            <End Role="Предметы" EntitySet="Предметы" />
+            <End Role="Оценки" EntitySet="Оценки" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Оценки__idСтуден__4222D4EF" Association="Self.FK__Оценки__idСтуден__4222D4EF">
+            <End Role="Студенты" EntitySet="Студенты" />
+            <End Role="Оценки" EntitySet="Оценки" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Студенты__idРоли__5AEE82B9" Association="Self.FK__Студенты__idРоли__5AEE82B9">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ДневникСтудентаModelContainer" CdmEntityContainer="Entities1">
+          <EntitySetMapping Name="Группа">
+            <EntityTypeMapping TypeName="ДневникСтудентаModel.Группа">
+              <MappingFragment StoreEntitySet="Группа">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Оценки">
+            <EntityTypeMapping TypeName="ДневникСтудентаModel.Оценки">
+              <MappingFragment StoreEntitySet="Оценки">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Оценка" ColumnName="Оценка" />
+                <ScalarProperty Name="idПредмета" ColumnName="idПредмета" />
+                <ScalarProperty Name="idСтудента" ColumnName="idСтудента" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Предметы">
+            <EntityTypeMapping TypeName="ДневникСтудентаModel.Предметы">
+              <MappingFragment StoreEntitySet="Предметы">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="НазваниеПредмета" ColumnName="НазваниеПредмета" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Роли">
+            <EntityTypeMapping TypeName="ДневникСтудентаModel.Роли">
+              <MappingFragment StoreEntitySet="Роли">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="НазваниеРоли" ColumnName="НазваниеРоли" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Студенты">
+            <EntityTypeMapping TypeName="ДневникСтудентаModel.Студенты">
+              <MappingFragment StoreEntitySet="Студенты">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="idГруппы" ColumnName="idГруппы" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+                <ScalarProperty Name="idРоли" ColumnName="idРоли" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
